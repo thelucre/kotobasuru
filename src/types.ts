@@ -1,0 +1,101 @@
+// Types for core learning system
+
+export type WordId = string;
+export type LocationId = string;
+export type SceneId = string;
+
+export interface Word {
+  id: WordId;
+  kana: string;
+  kanji?: string;
+  meaning: string;
+  partOfSpeech: "noun" | "verb" | "adjective" | "particle" | "expression";
+}
+
+export interface WordXP {
+  wordId: WordId;
+  xp: number;
+  exposures: number;
+  lastSeen: number; // epoch ms
+  guessedCorrectly: number;
+  guessedIncorrectly: number;
+  notes?: string;
+}
+
+export interface Scene {
+  id: SceneId;
+  locationId: LocationId;
+  title: string;
+  lines: string[]; // Japanese sentences
+  wordIds: WordId[]; // used in this scene
+}
+
+export interface Location {
+  id: LocationId;
+  name: string; // Display name with romaji or English
+  description?: string;
+  sceneIds: SceneId[];
+  english: string;
+  romaji: string;
+  furigana: string;
+  kanji: string;
+  icon?: string; // Placeholder for icon reference
+}
+
+export interface UserData {
+  wordXPMap: Record<WordId, WordXP>;
+  unlockedLocationIds: LocationId[];
+  completedSceneIds: SceneId[];
+}
+
+// Example: Scene processor result
+export interface SceneSession {
+  sceneId: SceneId;
+  timestamp: number;
+  wordXPChanges: Record<WordId, Partial<WordXP>>;
+  notes?: string;
+}
+
+// Utility: Calculate difficulty of a scene for a user
+export function calculateSceneDifficulty(
+  scene: Scene,
+  userData: UserData
+): number {
+  let totalXP = 0;
+  for (const wordId of scene.wordIds) {
+    const xp = userData.wordXPMap[wordId]?.xp ?? 0;
+    totalXP += xp;
+  }
+  const avgXP = totalXP / scene.wordIds.length;
+  return Math.round(100 - avgXP); // lower XP → higher difficulty
+}
+
+// Utility: Apply XP changes
+export function applySceneSession(
+  userData: UserData,
+  session: SceneSession
+): UserData {
+  const updated = { ...userData, wordXPMap: { ...userData.wordXPMap } };
+  for (const [wordId, delta] of Object.entries(session.wordXPChanges)) {
+    const prev = updated.wordXPMap[wordId] ?? {
+      wordId,
+      xp: 0,
+      exposures: 0,
+      lastSeen: 0,
+      guessedCorrectly: 0,
+      guessedIncorrectly: 0,
+    };
+    updated.wordXPMap[wordId] = {
+      ...prev,
+      ...delta,
+      xp: prev.xp + (delta.xp ?? 0),
+      exposures: prev.exposures + (delta.exposures ?? 0),
+      guessedCorrectly: prev.guessedCorrectly + (delta.guessedCorrectly ?? 0),
+      guessedIncorrectly:
+        prev.guessedIncorrectly + (delta.guessedIncorrectly ?? 0),
+      lastSeen: session.timestamp,
+    };
+  }
+  updated.completedSceneIds.push(session.sceneId);
+  return updated;
+}

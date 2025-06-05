@@ -74,6 +74,44 @@ export interface SceneSession {
   notes?: string;
 }
 
+// Token as returned by kuromoji tokenizer
+export type Token = {
+  surface_form: string;
+  pos: string;
+  pos_detail_1: string;
+  pos_detail_2: string;
+  pos_detail_3: string;
+  conjugated_type: string;
+  conjugated_form: string;
+  basic_form: string;
+  reading: string;
+  pronunciation: string;
+};
+
+// A single step in a grammar pattern match
+export type GrammarRuleStep = {
+  pos?: string;
+  basic_form?: string;
+  surface_form?: string;
+  conjugated_form?: string;
+  exact?: boolean; // all fields must match exactly
+};
+
+// A full grammar rule with metadata
+export interface GrammarRule {
+  id: string;
+  match: GrammarRuleStep[];
+  explanation: string;
+}
+
+// A match result
+export type GrammarMatch = {
+  ruleId: string;
+  start: number;
+  end: number;
+  matchedTokens: Token[];
+};
+
 // Utility: Calculate difficulty of a scene for a user
 export function calculateSceneDifficulty(
   scene: Scene,

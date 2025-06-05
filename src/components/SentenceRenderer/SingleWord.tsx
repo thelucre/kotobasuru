@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Text, Pressable, StyleSheet } from "react-native";
+import { Text, Pressable, StyleSheet, View } from "react-native";
 import { type IpadicFeatures } from "@sglkc/kuromoji";
 import { toHiragana } from "wanakana";
 
 interface Props {
   token: IpadicFeatures;
+  isMatched?: boolean;
+  matchId?: string;
 }
 
-export function SingleWord({ token }: Props) {
+export function SingleWord({ token, isMatched, matchId }: Props) {
   const [mode, setMode] = useState<"surface" | "kana" | "romaji">("surface");
 
   const toggle = () => {
@@ -36,20 +38,37 @@ export function SingleWord({ token }: Props) {
 
   return (
     <Pressable onPress={toggle}>
-      <Text style={[styles.word, getStyleByPOS()]}>{displayText}</Text>
+      <View style={[styles.wrapper, isMatched && styles.matchHighlight]}>
+        <Text style={[styles.word, getStyleByPOS()]}>{displayText}</Text>
+        {isMatched && matchId && <Text style={styles.matchId}>{matchId}</Text>}
+      </View>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    alignItems: "center",
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+    marginRight: 4,
+    marginBottom: 6,
+    borderRadius: 8,
+    backgroundColor: "#f5f5f5",
+    padding: 2,
+    // userSelect: "none",
+  },
   word: {
     fontSize: 28,
-    marginRight: 6,
-    marginBottom: 8,
     fontWeight: "500",
-    backgroundColor: "#f5f5f5",
-    borderRadius: 8,
-    padding: 2,
+  },
+  matchId: {
+    fontSize: 10,
+    color: "#4caf50",
+    marginTop: 2,
+  },
+  matchHighlight: {
+    backgroundColor: "#e0f2f1", // teal-ish highlight
   },
   verb: {
     color: "#32CD32", // lime

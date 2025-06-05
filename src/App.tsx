@@ -9,13 +9,15 @@ import MapView from "./ui/Map/MapView";
 // Stores
 import { setLastLocation, getLastLocation } from "@/store/user";
 import DemoSentence from "./components/SentenceRenderer/DemoSentence";
+import LocationView from "@/ui/Location/";
 
 export default function App() {
   const [activeView, setActiveView] = useState<"map" | "demo">("map");
 
   return (
     <View style={styles.container}>
-      <DemoSentence />
+      {/* <DemoSentence /> */}
+      <LocationView />
       <StatusBar style="auto" />
     </View>
   );

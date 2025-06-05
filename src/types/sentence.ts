@@ -7,7 +7,7 @@ export type WordTokenData = {
     romaji: string;
   };
   xp?: number;
-  type: "word" | "particle" | "grammar";
+  type: "word" | "particle" | "grammar" | "verb";
 };
 
 export type Sentence = {

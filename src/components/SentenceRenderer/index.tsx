@@ -1,85 +1,59 @@
-// src/components/SentenceRenderer.tsx
-import { useState } from "react";
-import { Text, View, Pressable, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { getTokenizer } from "@/parser/Tokenizer";
+import { type IpadicFeatures } from "@sglkc/kuromoji";
+import { SingleWord } from "./SingleWord";
 
-type Token = {
-  id: string;
-  text: {
-    kanji: string;
-    kana: string;
-    romaji: string;
-  };
-  type: string;
-  xp?: number;
-  color: string;
-};
-
-type Sentence = {
-  id: string;
-  text: {
-    kanji: string;
-    kana: string;
-    romaji: string;
-    english: string;
-  };
-  tokens: Token[];
-};
-
-interface SentenceRendererProps {
-  sentence: Sentence;
+interface Props {
+  sentence: string;
 }
 
-export function SentenceRenderer({ sentence }: SentenceRendererProps) {
+export function SentenceRenderer({ sentence }: Props) {
+  const [tokens, setTokens] = useState<IpadicFeatures[] | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const tokenize = async () => {
+      try {
+        const tokenizer = await getTokenizer();
+        const result = tokenizer.tokenize(sentence);
+        if (isMounted) {
+          setTokens(result);
+          setLoading(false);
+        }
+      } catch (e) {
+        console.error("Tokenization failed:", e);
+      }
+    };
+
+    tokenize();
+    return () => {
+      isMounted = false;
+    };
+  }, [sentence]);
+
+  if (loading) {
+    return <ActivityIndicator style={styles.loader} />;
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.line}>
-        {sentence.tokens.map((token) => (
-          <TokenDisplay key={token.id} token={token} />
-        ))}
-      </View>
-      <Text style={styles.translation}>{sentence.text.english}</Text>
+      {tokens?.map((token, idx) => (
+        <SingleWord key={idx} token={token} />
+      ))}
     </View>
   );
 }
 
-function TokenDisplay({ token }: { token: Token }) {
-  const [displayMode, setDisplayMode] = useState<"kanji" | "kana" | "romaji">(
-    "kanji"
-  );
-
-  const cycle = () => {
-    setDisplayMode((prev) =>
-      prev === "kanji" ? "kana" : prev === "kana" ? "romaji" : "kanji"
-    );
-  };
-
-  return (
-    <Pressable onPress={cycle}>
-      <Text style={[styles.token, { color: token.color }]}>
-        {token.text[displayMode]}
-      </Text>
-    </Pressable>
-  );
-}
-
 const styles = StyleSheet.create({
-  container: {
+  loader: {
     margin: 12,
-    padding: 8,
-    backgroundColor: "#f9f9f9",
-    borderRadius: 8,
   },
-  line: {
+  container: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginBottom: 6,
-  },
-  token: {
-    fontSize: 22,
-    marginRight: 4,
-  },
-  translation: {
-    fontSize: 16,
-    color: "#555",
+    // padding: 12,
   },
 });

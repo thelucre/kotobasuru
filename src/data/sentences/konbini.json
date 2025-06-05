@@ -1,0 +1,1202 @@
+[
+  {
+    "id": "s001",
+    "text": {
+      "kanji": "コンビニで商品1を買いました。",
+      "kana": "コンビニでしょうひん1をかいました。",
+      "romaji": "Konbini de shouhin 1 o kaimashita.",
+      "english": "I bought item 1 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s002",
+    "text": {
+      "kanji": "コンビニで商品2を買いました。",
+      "kana": "コンビニでしょうひん2をかいました。",
+      "romaji": "Konbini de shouhin 2 o kaimashita.",
+      "english": "I bought item 2 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s003",
+    "text": {
+      "kanji": "コンビニで商品3を買いました。",
+      "kana": "コンビニでしょうひん3をかいました。",
+      "romaji": "Konbini de shouhin 3 o kaimashita.",
+      "english": "I bought item 3 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s004",
+    "text": {
+      "kanji": "コンビニで商品4を買いました。",
+      "kana": "コンビニでしょうひん4をかいました。",
+      "romaji": "Konbini de shouhin 4 o kaimashita.",
+      "english": "I bought item 4 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s005",
+    "text": {
+      "kanji": "コンビニで商品5を買いました。",
+      "kana": "コンビニでしょうひん5をかいました。",
+      "romaji": "Konbini de shouhin 5 o kaimashita.",
+      "english": "I bought item 5 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s006",
+    "text": {
+      "kanji": "コンビニで商品6を買いました。",
+      "kana": "コンビニでしょうひん6をかいました。",
+      "romaji": "Konbini de shouhin 6 o kaimashita.",
+      "english": "I bought item 6 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s007",
+    "text": {
+      "kanji": "コンビニで商品7を買いました。",
+      "kana": "コンビニでしょうひん7をかいました。",
+      "romaji": "Konbini de shouhin 7 o kaimashita.",
+      "english": "I bought item 7 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s008",
+    "text": {
+      "kanji": "コンビニで商品8を買いました。",
+      "kana": "コンビニでしょうひん8をかいました。",
+      "romaji": "Konbini de shouhin 8 o kaimashita.",
+      "english": "I bought item 8 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s009",
+    "text": {
+      "kanji": "コンビニで商品9を買いました。",
+      "kana": "コンビニでしょうひん9をかいました。",
+      "romaji": "Konbini de shouhin 9 o kaimashita.",
+      "english": "I bought item 9 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s010",
+    "text": {
+      "kanji": "コンビニで商品10を買いました。",
+      "kana": "コンビニでしょうひん10をかいました。",
+      "romaji": "Konbini de shouhin 10 o kaimashita.",
+      "english": "I bought item 10 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s011",
+    "text": {
+      "kanji": "コンビニで商品11を買いました。",
+      "kana": "コンビニでしょうひん11をかいました。",
+      "romaji": "Konbini de shouhin 11 o kaimashita.",
+      "english": "I bought item 11 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s012",
+    "text": {
+      "kanji": "コンビニで商品12を買いました。",
+      "kana": "コンビニでしょうひん12をかいました。",
+      "romaji": "Konbini de shouhin 12 o kaimashita.",
+      "english": "I bought item 12 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s013",
+    "text": {
+      "kanji": "コンビニで商品13を買いました。",
+      "kana": "コンビニでしょうひん13をかいました。",
+      "romaji": "Konbini de shouhin 13 o kaimashita.",
+      "english": "I bought item 13 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s014",
+    "text": {
+      "kanji": "コンビニで商品14を買いました。",
+      "kana": "コンビニでしょうひん14をかいました。",
+      "romaji": "Konbini de shouhin 14 o kaimashita.",
+      "english": "I bought item 14 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s015",
+    "text": {
+      "kanji": "コンビニで商品15を買いました。",
+      "kana": "コンビニでしょうひん15をかいました。",
+      "romaji": "Konbini de shouhin 15 o kaimashita.",
+      "english": "I bought item 15 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s016",
+    "text": {
+      "kanji": "コンビニで商品16を買いました。",
+      "kana": "コンビニでしょうひん16をかいました。",
+      "romaji": "Konbini de shouhin 16 o kaimashita.",
+      "english": "I bought item 16 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s017",
+    "text": {
+      "kanji": "コンビニで商品17を買いました。",
+      "kana": "コンビニでしょうひん17をかいました。",
+      "romaji": "Konbini de shouhin 17 o kaimashita.",
+      "english": "I bought item 17 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s018",
+    "text": {
+      "kanji": "コンビニで商品18を買いました。",
+      "kana": "コンビニでしょうひん18をかいました。",
+      "romaji": "Konbini de shouhin 18 o kaimashita.",
+      "english": "I bought item 18 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s019",
+    "text": {
+      "kanji": "コンビニで商品19を買いました。",
+      "kana": "コンビニでしょうひん19をかいました。",
+      "romaji": "Konbini de shouhin 19 o kaimashita.",
+      "english": "I bought item 19 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s020",
+    "text": {
+      "kanji": "コンビニで商品20を買いました。",
+      "kana": "コンビニでしょうひん20をかいました。",
+      "romaji": "Konbini de shouhin 20 o kaimashita.",
+      "english": "I bought item 20 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s021",
+    "text": {
+      "kanji": "コンビニで商品21を買いました。",
+      "kana": "コンビニでしょうひん21をかいました。",
+      "romaji": "Konbini de shouhin 21 o kaimashita.",
+      "english": "I bought item 21 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s022",
+    "text": {
+      "kanji": "コンビニで商品22を買いました。",
+      "kana": "コンビニでしょうひん22をかいました。",
+      "romaji": "Konbini de shouhin 22 o kaimashita.",
+      "english": "I bought item 22 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s023",
+    "text": {
+      "kanji": "コンビニで商品23を買いました。",
+      "kana": "コンビニでしょうひん23をかいました。",
+      "romaji": "Konbini de shouhin 23 o kaimashita.",
+      "english": "I bought item 23 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s024",
+    "text": {
+      "kanji": "コンビニで商品24を買いました。",
+      "kana": "コンビニでしょうひん24をかいました。",
+      "romaji": "Konbini de shouhin 24 o kaimashita.",
+      "english": "I bought item 24 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s025",
+    "text": {
+      "kanji": "コンビニで商品25を買いました。",
+      "kana": "コンビニでしょうひん25をかいました。",
+      "romaji": "Konbini de shouhin 25 o kaimashita.",
+      "english": "I bought item 25 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s026",
+    "text": {
+      "kanji": "コンビニで商品26を買いました。",
+      "kana": "コンビニでしょうひん26をかいました。",
+      "romaji": "Konbini de shouhin 26 o kaimashita.",
+      "english": "I bought item 26 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s027",
+    "text": {
+      "kanji": "コンビニで商品27を買いました。",
+      "kana": "コンビニでしょうひん27をかいました。",
+      "romaji": "Konbini de shouhin 27 o kaimashita.",
+      "english": "I bought item 27 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s028",
+    "text": {
+      "kanji": "コンビニで商品28を買いました。",
+      "kana": "コンビニでしょうひん28をかいました。",
+      "romaji": "Konbini de shouhin 28 o kaimashita.",
+      "english": "I bought item 28 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s029",
+    "text": {
+      "kanji": "コンビニで商品29を買いました。",
+      "kana": "コンビニでしょうひん29をかいました。",
+      "romaji": "Konbini de shouhin 29 o kaimashita.",
+      "english": "I bought item 29 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s030",
+    "text": {
+      "kanji": "コンビニで商品30を買いました。",
+      "kana": "コンビニでしょうひん30をかいました。",
+      "romaji": "Konbini de shouhin 30 o kaimashita.",
+      "english": "I bought item 30 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s031",
+    "text": {
+      "kanji": "コンビニで商品31を買いました。",
+      "kana": "コンビニでしょうひん31をかいました。",
+      "romaji": "Konbini de shouhin 31 o kaimashita.",
+      "english": "I bought item 31 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s032",
+    "text": {
+      "kanji": "コンビニで商品32を買いました。",
+      "kana": "コンビニでしょうひん32をかいました。",
+      "romaji": "Konbini de shouhin 32 o kaimashita.",
+      "english": "I bought item 32 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s033",
+    "text": {
+      "kanji": "コンビニで商品33を買いました。",
+      "kana": "コンビニでしょうひん33をかいました。",
+      "romaji": "Konbini de shouhin 33 o kaimashita.",
+      "english": "I bought item 33 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s034",
+    "text": {
+      "kanji": "コンビニで商品34を買いました。",
+      "kana": "コンビニでしょうひん34をかいました。",
+      "romaji": "Konbini de shouhin 34 o kaimashita.",
+      "english": "I bought item 34 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s035",
+    "text": {
+      "kanji": "コンビニで商品35を買いました。",
+      "kana": "コンビニでしょうひん35をかいました。",
+      "romaji": "Konbini de shouhin 35 o kaimashita.",
+      "english": "I bought item 35 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s036",
+    "text": {
+      "kanji": "コンビニで商品36を買いました。",
+      "kana": "コンビニでしょうひん36をかいました。",
+      "romaji": "Konbini de shouhin 36 o kaimashita.",
+      "english": "I bought item 36 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s037",
+    "text": {
+      "kanji": "コンビニで商品37を買いました。",
+      "kana": "コンビニでしょうひん37をかいました。",
+      "romaji": "Konbini de shouhin 37 o kaimashita.",
+      "english": "I bought item 37 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s038",
+    "text": {
+      "kanji": "コンビニで商品38を買いました。",
+      "kana": "コンビニでしょうひん38をかいました。",
+      "romaji": "Konbini de shouhin 38 o kaimashita.",
+      "english": "I bought item 38 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s039",
+    "text": {
+      "kanji": "コンビニで商品39を買いました。",
+      "kana": "コンビニでしょうひん39をかいました。",
+      "romaji": "Konbini de shouhin 39 o kaimashita.",
+      "english": "I bought item 39 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s040",
+    "text": {
+      "kanji": "コンビニで商品40を買いました。",
+      "kana": "コンビニでしょうひん40をかいました。",
+      "romaji": "Konbini de shouhin 40 o kaimashita.",
+      "english": "I bought item 40 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s041",
+    "text": {
+      "kanji": "コンビニで商品41を買いました。",
+      "kana": "コンビニでしょうひん41をかいました。",
+      "romaji": "Konbini de shouhin 41 o kaimashita.",
+      "english": "I bought item 41 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s042",
+    "text": {
+      "kanji": "コンビニで商品42を買いました。",
+      "kana": "コンビニでしょうひん42をかいました。",
+      "romaji": "Konbini de shouhin 42 o kaimashita.",
+      "english": "I bought item 42 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s043",
+    "text": {
+      "kanji": "コンビニで商品43を買いました。",
+      "kana": "コンビニでしょうひん43をかいました。",
+      "romaji": "Konbini de shouhin 43 o kaimashita.",
+      "english": "I bought item 43 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s044",
+    "text": {
+      "kanji": "コンビニで商品44を買いました。",
+      "kana": "コンビニでしょうひん44をかいました。",
+      "romaji": "Konbini de shouhin 44 o kaimashita.",
+      "english": "I bought item 44 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s045",
+    "text": {
+      "kanji": "コンビニで商品45を買いました。",
+      "kana": "コンビニでしょうひん45をかいました。",
+      "romaji": "Konbini de shouhin 45 o kaimashita.",
+      "english": "I bought item 45 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s046",
+    "text": {
+      "kanji": "コンビニで商品46を買いました。",
+      "kana": "コンビニでしょうひん46をかいました。",
+      "romaji": "Konbini de shouhin 46 o kaimashita.",
+      "english": "I bought item 46 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s047",
+    "text": {
+      "kanji": "コンビニで商品47を買いました。",
+      "kana": "コンビニでしょうひん47をかいました。",
+      "romaji": "Konbini de shouhin 47 o kaimashita.",
+      "english": "I bought item 47 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s048",
+    "text": {
+      "kanji": "コンビニで商品48を買いました。",
+      "kana": "コンビニでしょうひん48をかいました。",
+      "romaji": "Konbini de shouhin 48 o kaimashita.",
+      "english": "I bought item 48 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s049",
+    "text": {
+      "kanji": "コンビニで商品49を買いました。",
+      "kana": "コンビニでしょうひん49をかいました。",
+      "romaji": "Konbini de shouhin 49 o kaimashita.",
+      "english": "I bought item 49 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s050",
+    "text": {
+      "kanji": "コンビニで商品50を買いました。",
+      "kana": "コンビニでしょうひん50をかいました。",
+      "romaji": "Konbini de shouhin 50 o kaimashita.",
+      "english": "I bought item 50 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s051",
+    "text": {
+      "kanji": "コンビニで商品51を買いました。",
+      "kana": "コンビニでしょうひん51をかいました。",
+      "romaji": "Konbini de shouhin 51 o kaimashita.",
+      "english": "I bought item 51 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s052",
+    "text": {
+      "kanji": "コンビニで商品52を買いました。",
+      "kana": "コンビニでしょうひん52をかいました。",
+      "romaji": "Konbini de shouhin 52 o kaimashita.",
+      "english": "I bought item 52 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s053",
+    "text": {
+      "kanji": "コンビニで商品53を買いました。",
+      "kana": "コンビニでしょうひん53をかいました。",
+      "romaji": "Konbini de shouhin 53 o kaimashita.",
+      "english": "I bought item 53 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s054",
+    "text": {
+      "kanji": "コンビニで商品54を買いました。",
+      "kana": "コンビニでしょうひん54をかいました。",
+      "romaji": "Konbini de shouhin 54 o kaimashita.",
+      "english": "I bought item 54 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s055",
+    "text": {
+      "kanji": "コンビニで商品55を買いました。",
+      "kana": "コンビニでしょうひん55をかいました。",
+      "romaji": "Konbini de shouhin 55 o kaimashita.",
+      "english": "I bought item 55 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s056",
+    "text": {
+      "kanji": "コンビニで商品56を買いました。",
+      "kana": "コンビニでしょうひん56をかいました。",
+      "romaji": "Konbini de shouhin 56 o kaimashita.",
+      "english": "I bought item 56 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s057",
+    "text": {
+      "kanji": "コンビニで商品57を買いました。",
+      "kana": "コンビニでしょうひん57をかいました。",
+      "romaji": "Konbini de shouhin 57 o kaimashita.",
+      "english": "I bought item 57 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s058",
+    "text": {
+      "kanji": "コンビニで商品58を買いました。",
+      "kana": "コンビニでしょうひん58をかいました。",
+      "romaji": "Konbini de shouhin 58 o kaimashita.",
+      "english": "I bought item 58 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s059",
+    "text": {
+      "kanji": "コンビニで商品59を買いました。",
+      "kana": "コンビニでしょうひん59をかいました。",
+      "romaji": "Konbini de shouhin 59 o kaimashita.",
+      "english": "I bought item 59 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s060",
+    "text": {
+      "kanji": "コンビニで商品60を買いました。",
+      "kana": "コンビニでしょうひん60をかいました。",
+      "romaji": "Konbini de shouhin 60 o kaimashita.",
+      "english": "I bought item 60 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s061",
+    "text": {
+      "kanji": "コンビニで商品61を買いました。",
+      "kana": "コンビニでしょうひん61をかいました。",
+      "romaji": "Konbini de shouhin 61 o kaimashita.",
+      "english": "I bought item 61 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s062",
+    "text": {
+      "kanji": "コンビニで商品62を買いました。",
+      "kana": "コンビニでしょうひん62をかいました。",
+      "romaji": "Konbini de shouhin 62 o kaimashita.",
+      "english": "I bought item 62 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s063",
+    "text": {
+      "kanji": "コンビニで商品63を買いました。",
+      "kana": "コンビニでしょうひん63をかいました。",
+      "romaji": "Konbini de shouhin 63 o kaimashita.",
+      "english": "I bought item 63 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s064",
+    "text": {
+      "kanji": "コンビニで商品64を買いました。",
+      "kana": "コンビニでしょうひん64をかいました。",
+      "romaji": "Konbini de shouhin 64 o kaimashita.",
+      "english": "I bought item 64 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s065",
+    "text": {
+      "kanji": "コンビニで商品65を買いました。",
+      "kana": "コンビニでしょうひん65をかいました。",
+      "romaji": "Konbini de shouhin 65 o kaimashita.",
+      "english": "I bought item 65 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s066",
+    "text": {
+      "kanji": "コンビニで商品66を買いました。",
+      "kana": "コンビニでしょうひん66をかいました。",
+      "romaji": "Konbini de shouhin 66 o kaimashita.",
+      "english": "I bought item 66 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s067",
+    "text": {
+      "kanji": "コンビニで商品67を買いました。",
+      "kana": "コンビニでしょうひん67をかいました。",
+      "romaji": "Konbini de shouhin 67 o kaimashita.",
+      "english": "I bought item 67 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s068",
+    "text": {
+      "kanji": "コンビニで商品68を買いました。",
+      "kana": "コンビニでしょうひん68をかいました。",
+      "romaji": "Konbini de shouhin 68 o kaimashita.",
+      "english": "I bought item 68 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s069",
+    "text": {
+      "kanji": "コンビニで商品69を買いました。",
+      "kana": "コンビニでしょうひん69をかいました。",
+      "romaji": "Konbini de shouhin 69 o kaimashita.",
+      "english": "I bought item 69 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s070",
+    "text": {
+      "kanji": "コンビニで商品70を買いました。",
+      "kana": "コンビニでしょうひん70をかいました。",
+      "romaji": "Konbini de shouhin 70 o kaimashita.",
+      "english": "I bought item 70 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s071",
+    "text": {
+      "kanji": "コンビニで商品71を買いました。",
+      "kana": "コンビニでしょうひん71をかいました。",
+      "romaji": "Konbini de shouhin 71 o kaimashita.",
+      "english": "I bought item 71 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s072",
+    "text": {
+      "kanji": "コンビニで商品72を買いました。",
+      "kana": "コンビニでしょうひん72をかいました。",
+      "romaji": "Konbini de shouhin 72 o kaimashita.",
+      "english": "I bought item 72 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s073",
+    "text": {
+      "kanji": "コンビニで商品73を買いました。",
+      "kana": "コンビニでしょうひん73をかいました。",
+      "romaji": "Konbini de shouhin 73 o kaimashita.",
+      "english": "I bought item 73 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s074",
+    "text": {
+      "kanji": "コンビニで商品74を買いました。",
+      "kana": "コンビニでしょうひん74をかいました。",
+      "romaji": "Konbini de shouhin 74 o kaimashita.",
+      "english": "I bought item 74 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s075",
+    "text": {
+      "kanji": "コンビニで商品75を買いました。",
+      "kana": "コンビニでしょうひん75をかいました。",
+      "romaji": "Konbini de shouhin 75 o kaimashita.",
+      "english": "I bought item 75 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s076",
+    "text": {
+      "kanji": "コンビニで商品76を買いました。",
+      "kana": "コンビニでしょうひん76をかいました。",
+      "romaji": "Konbini de shouhin 76 o kaimashita.",
+      "english": "I bought item 76 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s077",
+    "text": {
+      "kanji": "コンビニで商品77を買いました。",
+      "kana": "コンビニでしょうひん77をかいました。",
+      "romaji": "Konbini de shouhin 77 o kaimashita.",
+      "english": "I bought item 77 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s078",
+    "text": {
+      "kanji": "コンビニで商品78を買いました。",
+      "kana": "コンビニでしょうひん78をかいました。",
+      "romaji": "Konbini de shouhin 78 o kaimashita.",
+      "english": "I bought item 78 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s079",
+    "text": {
+      "kanji": "コンビニで商品79を買いました。",
+      "kana": "コンビニでしょうひん79をかいました。",
+      "romaji": "Konbini de shouhin 79 o kaimashita.",
+      "english": "I bought item 79 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s080",
+    "text": {
+      "kanji": "コンビニで商品80を買いました。",
+      "kana": "コンビニでしょうひん80をかいました。",
+      "romaji": "Konbini de shouhin 80 o kaimashita.",
+      "english": "I bought item 80 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s081",
+    "text": {
+      "kanji": "コンビニで商品81を買いました。",
+      "kana": "コンビニでしょうひん81をかいました。",
+      "romaji": "Konbini de shouhin 81 o kaimashita.",
+      "english": "I bought item 81 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s082",
+    "text": {
+      "kanji": "コンビニで商品82を買いました。",
+      "kana": "コンビニでしょうひん82をかいました。",
+      "romaji": "Konbini de shouhin 82 o kaimashita.",
+      "english": "I bought item 82 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s083",
+    "text": {
+      "kanji": "コンビニで商品83を買いました。",
+      "kana": "コンビニでしょうひん83をかいました。",
+      "romaji": "Konbini de shouhin 83 o kaimashita.",
+      "english": "I bought item 83 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s084",
+    "text": {
+      "kanji": "コンビニで商品84を買いました。",
+      "kana": "コンビニでしょうひん84をかいました。",
+      "romaji": "Konbini de shouhin 84 o kaimashita.",
+      "english": "I bought item 84 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s085",
+    "text": {
+      "kanji": "コンビニで商品85を買いました。",
+      "kana": "コンビニでしょうひん85をかいました。",
+      "romaji": "Konbini de shouhin 85 o kaimashita.",
+      "english": "I bought item 85 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s086",
+    "text": {
+      "kanji": "コンビニで商品86を買いました。",
+      "kana": "コンビニでしょうひん86をかいました。",
+      "romaji": "Konbini de shouhin 86 o kaimashita.",
+      "english": "I bought item 86 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s087",
+    "text": {
+      "kanji": "コンビニで商品87を買いました。",
+      "kana": "コンビニでしょうひん87をかいました。",
+      "romaji": "Konbini de shouhin 87 o kaimashita.",
+      "english": "I bought item 87 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s088",
+    "text": {
+      "kanji": "コンビニで商品88を買いました。",
+      "kana": "コンビニでしょうひん88をかいました。",
+      "romaji": "Konbini de shouhin 88 o kaimashita.",
+      "english": "I bought item 88 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s089",
+    "text": {
+      "kanji": "コンビニで商品89を買いました。",
+      "kana": "コンビニでしょうひん89をかいました。",
+      "romaji": "Konbini de shouhin 89 o kaimashita.",
+      "english": "I bought item 89 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s090",
+    "text": {
+      "kanji": "コンビニで商品90を買いました。",
+      "kana": "コンビニでしょうひん90をかいました。",
+      "romaji": "Konbini de shouhin 90 o kaimashita.",
+      "english": "I bought item 90 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s091",
+    "text": {
+      "kanji": "コンビニで商品91を買いました。",
+      "kana": "コンビニでしょうひん91をかいました。",
+      "romaji": "Konbini de shouhin 91 o kaimashita.",
+      "english": "I bought item 91 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s092",
+    "text": {
+      "kanji": "コンビニで商品92を買いました。",
+      "kana": "コンビニでしょうひん92をかいました。",
+      "romaji": "Konbini de shouhin 92 o kaimashita.",
+      "english": "I bought item 92 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s093",
+    "text": {
+      "kanji": "コンビニで商品93を買いました。",
+      "kana": "コンビニでしょうひん93をかいました。",
+      "romaji": "Konbini de shouhin 93 o kaimashita.",
+      "english": "I bought item 93 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s094",
+    "text": {
+      "kanji": "コンビニで商品94を買いました。",
+      "kana": "コンビニでしょうひん94をかいました。",
+      "romaji": "Konbini de shouhin 94 o kaimashita.",
+      "english": "I bought item 94 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s095",
+    "text": {
+      "kanji": "コンビニで商品95を買いました。",
+      "kana": "コンビニでしょうひん95をかいました。",
+      "romaji": "Konbini de shouhin 95 o kaimashita.",
+      "english": "I bought item 95 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s096",
+    "text": {
+      "kanji": "コンビニで商品96を買いました。",
+      "kana": "コンビニでしょうひん96をかいました。",
+      "romaji": "Konbini de shouhin 96 o kaimashita.",
+      "english": "I bought item 96 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s097",
+    "text": {
+      "kanji": "コンビニで商品97を買いました。",
+      "kana": "コンビニでしょうひん97をかいました。",
+      "romaji": "Konbini de shouhin 97 o kaimashita.",
+      "english": "I bought item 97 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s098",
+    "text": {
+      "kanji": "コンビニで商品98を買いました。",
+      "kana": "コンビニでしょうひん98をかいました。",
+      "romaji": "Konbini de shouhin 98 o kaimashita.",
+      "english": "I bought item 98 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s099",
+    "text": {
+      "kanji": "コンビニで商品99を買いました。",
+      "kana": "コンビニでしょうひん99をかいました。",
+      "romaji": "Konbini de shouhin 99 o kaimashita.",
+      "english": "I bought item 99 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  },
+  {
+    "id": "s100",
+    "text": {
+      "kanji": "コンビニで商品100を買いました。",
+      "kana": "コンビニでしょうひん100をかいました。",
+      "romaji": "Konbini de shouhin 100 o kaimashita.",
+      "english": "I bought item 100 at the convenience store."
+    },
+    "tags": [
+      "konbini"
+    ]
+  }
+]

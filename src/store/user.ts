@@ -1,13 +1,28 @@
-// src/data/userStore.ts
+// src/store/user.ts
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { applySceneSession, type UserData, type SceneSession } from "../types";
+import {
+  applySceneSession,
+  type LocationId,
+  type WordId,
+  type SceneSession,
+  type SceneId,
+  type WordXP,
+} from "../types";
 
 const STORAGE_KEY = "userData";
+
+export interface UserData {
+  wordXPMap: Record<WordId, WordXP>;
+  unlockedLocationIds: LocationId[];
+  completedSceneIds: SceneId[];
+  lastLocationId: LocationId | null;
+}
 
 const initialUserData: UserData = {
   wordXPMap: {},
   unlockedLocationIds: ["konbini"],
   completedSceneIds: [],
+  lastLocationId: null,
 };
 
 export async function loadUserData(): Promise<UserData> {
@@ -29,4 +44,15 @@ export function simulateScene(
   session: SceneSession
 ): UserData {
   return applySceneSession(userData, session);
+}
+
+export async function setLastLocation(locationId: string) {
+  const data = await loadUserData();
+  data.lastLocationId = locationId;
+  await saveUserData(data);
+}
+
+export async function getLastLocation(): Promise<string | null> {
+  const data = await loadUserData();
+  return data.lastLocationId;
 }

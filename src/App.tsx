@@ -6,16 +6,16 @@ import { useState } from "react";
 import Demo01 from "./components/Demo01";
 import MapView from "./ui/Map/MapView";
 
+// Stores
+import { setLastLocation, getLastLocation } from "@/store/user";
+import DemoSentence from "./components/SentenceRenderer/DemoSentence";
+
 export default function App() {
   const [activeView, setActiveView] = useState<"map" | "demo">("map");
 
   return (
     <View style={styles.container}>
-      {activeView === "map" ? (
-        <MapView onLocationSelect={() => setActiveView("demo")} />
-      ) : (
-        <Demo01 />
-      )}
+      <DemoSentence />
       <StatusBar style="auto" />
     </View>
   );

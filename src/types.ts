@@ -4,12 +4,14 @@ export type WordId = string;
 export type LocationId = string;
 export type SceneId = string;
 
-export interface Word {
+export interface WordEntry {
   id: WordId;
   kana: string;
   kanji?: string;
   meaning: string;
   partOfSpeech: "noun" | "verb" | "adjective" | "particle" | "expression";
+  tags?: string[]; // e.g., ["konbini", "food", "basic"]
+  jlpt?: "N5" | "N4" | "N3" | "N2" | "N1";
 }
 
 export interface WordXP {
@@ -20,6 +22,28 @@ export interface WordXP {
   guessedCorrectly: number;
   guessedIncorrectly: number;
   notes?: string;
+}
+
+export interface ContentPack {
+  locationId: LocationId;
+  level: "N5" | "N4" | "N3" | "N2" | "N1";
+  wordIds: WordId[];
+  grammarPoints: GrammarPoint[];
+  scenes: Scene[];
+}
+
+export interface ContentRegistry {
+  packs: Record<string, ContentPack>; // key = `${locationId}.${level}`
+  knownWordIds: Set<WordId>;
+  knownGrammarIds: Set<string>;
+}
+
+export interface GrammarPoint {
+  id: string;
+  expression: string;
+  meaning: string;
+  level: "N5" | "N4" | "N3" | "N2" | "N1";
+  examples?: string[];
 }
 
 export interface Scene {
@@ -40,12 +64,6 @@ export interface Location {
   furigana: string;
   kanji: string;
   icon?: string; // Placeholder for icon reference
-}
-
-export interface UserData {
-  wordXPMap: Record<WordId, WordXP>;
-  unlockedLocationIds: LocationId[];
-  completedSceneIds: SceneId[];
 }
 
 // Example: Scene processor result

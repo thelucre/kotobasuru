@@ -7,7 +7,10 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { locations } from "../../data/map";
+import { Link } from "expo-router";
+
+// Data
+import { locations } from "@/data/locations";
 
 interface MapViewProps {
   onLocationSelect: (locationId: string) => void;
@@ -16,6 +19,9 @@ interface MapViewProps {
 export default function MapView({ onLocationSelect }: MapViewProps) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Link href="/konbini">
+        <Text>Go to Konbini</Text>
+      </Link>
       <Text style={styles.heading}>🗺️ Choose a Location</Text>
       <View style={styles.grid}>
         {locations.map((loc) => (

@@ -97,11 +97,24 @@ export type GrammarRuleStep = {
   exact?: boolean; // all fields must match exactly
 };
 
+/**
+ * A structured object for grammar rule explanations, designed for rich display.
+ * This replaces the simple `explanation` string.
+ */
+export interface GrammarNote {
+  title: string; // A short, clear title (e.g., "Past Polite Verb")
+  structure: string; // The grammatical formula (e.g., "Verb Stem + ました")
+  summary: string; // A paragraph explaining the rule's usage and nuance.
+  level: "N5" | "N4" | "N3" | "N2" | "N1";
+  examples?: string[]; // Optional: Example sentences demonstrating the rule.
+  related?: string[]; // Optional: IDs of related grammar rules (e.g., V-MASU -> V-MASHITA).
+}
+
 // A full grammar rule with metadata
 export interface GrammarRule {
   id: string;
   match: GrammarRuleStep[];
-  explanation: string;
+  notes: GrammarNote;
 }
 
 // A match result

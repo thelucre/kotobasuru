@@ -14,14 +14,47 @@ export interface WordEntry {
   jlpt?: "N5" | "N4" | "N3" | "N2" | "N1";
 }
 
-export interface WordXP {
+/** Represents a user's entire learning state. */
+export interface UserData {
+  id: string;
+  name: string;
+  createdAt: number; // epoch ms
+  // Replaces WordXP with a more descriptive name and includes familiarity.
+  wordStats: Record<WordId, WordStats>;
+  // Tracks user's progress through scenes.
+  completedSceneIds: SceneId[];
+  // Logs daily presence, the core metric of the app.
+  dailyRitualLog: number[]; // Array of epoch ms timestamps for each day the user showed up.
+  lastSceneId?: SceneId; // Remembers where the user left off.
+}
+
+/**
+ * Tracks the user's relationship with a single word.
+ * This directly maps to your "Build a relationship to words" principle.
+ * 'Familiarity' is the core metric for adapting the UI.
+ */
+export interface WordStats {
   wordId: WordId;
-  xp: number;
-  exposures: number;
+  familiarity: number; // 1.0 (fully known) down to 0.0 (brand new). Starts at 0.
+  exposures: number; // How many times has the user seen this word?
+  interactions: number; // How many times has the user tapped this word?
   lastSeen: number; // epoch ms
-  guessedCorrectly: number;
-  guessedIncorrectly: number;
-  notes?: string;
+}
+
+/** A log of a single interaction within a scene. */
+export interface SceneInteractionLog {
+  sceneId: SceneId;
+  timestamp: number;
+  interactions: {
+    wordId: WordId;
+    action:
+      | "expose"
+      | "tap_reveal_kana"
+      | "tap_reveal_meaning"
+      | "reply_attempt";
+  }[];
+  userReply?: string;
+  aiFeedback?: string;
 }
 
 export interface ContentPack {
@@ -70,7 +103,7 @@ export interface Location {
 export interface SceneSession {
   sceneId: SceneId;
   timestamp: number;
-  wordXPChanges: Record<WordId, Partial<WordXP>>;
+  wordXPChanges: Record<WordId, Partial<WordStats>>;
   notes?: string;
 }
 
@@ -124,47 +157,3 @@ export type GrammarMatch = {
   end: number;
   matchedTokens: Token[];
 };
-
-// Utility: Calculate difficulty of a scene for a user
-export function calculateSceneDifficulty(
-  scene: Scene,
-  userData: UserData
-): number {
-  let totalXP = 0;
-  for (const wordId of scene.wordIds) {
-    const xp = userData.wordXPMap[wordId]?.xp ?? 0;
-    totalXP += xp;
-  }
-  const avgXP = totalXP / scene.wordIds.length;
-  return Math.round(100 - avgXP); // lower XP → higher difficulty
-}
-
-// Utility: Apply XP changes
-export function applySceneSession(
-  userData: UserData,
-  session: SceneSession
-): UserData {
-  const updated = { ...userData, wordXPMap: { ...userData.wordXPMap } };
-  for (const [wordId, delta] of Object.entries(session.wordXPChanges)) {
-    const prev = updated.wordXPMap[wordId] ?? {
-      wordId,
-      xp: 0,
-      exposures: 0,
-      lastSeen: 0,
-      guessedCorrectly: 0,
-      guessedIncorrectly: 0,
-    };
-    updated.wordXPMap[wordId] = {
-      ...prev,
-      ...delta,
-      xp: prev.xp + (delta.xp ?? 0),
-      exposures: prev.exposures + (delta.exposures ?? 0),
-      guessedCorrectly: prev.guessedCorrectly + (delta.guessedCorrectly ?? 0),
-      guessedIncorrectly:
-        prev.guessedIncorrectly + (delta.guessedIncorrectly ?? 0),
-      lastSeen: session.timestamp,
-    };
-  }
-  updated.completedSceneIds.push(session.sceneId);
-  return updated;
-}

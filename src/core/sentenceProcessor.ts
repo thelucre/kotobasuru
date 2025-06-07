@@ -397,32 +397,40 @@ export const GRAMMAR_RULES: GrammarRule[] = [
  * Checks if a single token matches a rule step.
  */
 function tokenMatchesStep(token: Token, step: GrammarRuleStep): boolean {
-  if (step.pos && token.pos !== step.pos) return false;
+  // Handle the case where pos can be an array of strings
+  if (step.pos) {
+    if (Array.isArray(step.pos)) {
+      if (!step.pos.includes(token.pos)) return false;
+    } else {
+      if (token.pos !== step.pos) return false;
+    }
+  }
   if (step.basic_form && token.basic_form !== step.basic_form) return false;
   if (step.surface_form && token.surface_form !== step.surface_form)
     return false;
-  // Add other checks from GrammarRuleStep if needed
   return true;
 }
 
 /**
  * Finds all grammar rule matches in a sequence of tokens.
- * This version prioritizes the longest possible match at any given position.
+ * This version correctly prioritizes the LONGEST possible match at any given position,
+ * fixing the greedy matching issue.
  */
 export function findGrammarMatches(
   tokens: Token[],
   rules: GrammarRule[]
 ): GrammarMatch[] {
   const allMatches: GrammarMatch[] = [];
-  for (let i = 0; i < tokens.length; i++) {
+  let i = 0;
+  while (i < tokens.length) {
     let bestMatch: GrammarMatch | null = null;
 
-    // Check every rule to see if it matches starting at index i
+    // 1. Check EVERY rule to see if it can match starting at the current token `i`.
     for (const rule of rules) {
       if (i + rule.match.length > tokens.length) continue;
 
       let isMatch = true;
-      const matchedTokens: Token[] = [];
+      const currentMatchedTokens: Token[] = [];
       for (let j = 0; j < rule.match.length; j++) {
         const token = tokens[i + j];
         const step = rule.match[j];
@@ -430,27 +438,34 @@ export function findGrammarMatches(
           isMatch = false;
           break;
         }
-        matchedTokens.push(token);
+        currentMatchedTokens.push(token);
       }
 
+      // 2. If it's a match, check if it's the longest one we've found so far.
       if (isMatch) {
-        // We found a match. Is it longer than the previous best match?
-        if (!bestMatch || rule.match.length > bestMatch.matchedTokens.length) {
+        if (
+          !bestMatch ||
+          currentMatchedTokens.length > bestMatch.matchedTokens.length
+        ) {
           bestMatch = {
             ruleId: rule.id,
             start: i,
             end: i + rule.match.length,
-            matchedTokens,
+            matchedTokens: currentMatchedTokens,
           };
         }
       }
     }
 
-    // After checking all rules, if we found a best match, add it and skip ahead.
+    // 3. After checking all rules, commit the best (longest) match we found.
     if (bestMatch) {
+      console.log("Best match: ", { bestMatch, tokens: tokens[i] }); // Debug log for the best match
       allMatches.push(bestMatch);
-      // Important: Advance i to the end of the match to prevent overlapping.
-      i = bestMatch.end - 1;
+      // 4. Advance the loop counter PAST the entire matched group.
+      i = bestMatch.end;
+    } else {
+      // If no match was found at all, just move to the next token.
+      i++;
     }
   }
   return allMatches;

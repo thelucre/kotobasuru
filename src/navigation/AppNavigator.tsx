@@ -3,7 +3,9 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View, Text, Button } from "react-native";
+
 import GBASuruScreen from "../GBASuru"; // Adjust the import path as needed
+import OCRTestScreen from "../GBASuru/OCRTest";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +30,10 @@ function HomeScreen({ navigation }) {
         title="GBA Suru"
         onPress={() => navigation.navigate("GBA SURU")}
       />
+      <Button
+        title="OCR Test"
+        onPress={() => navigation.navigate("OCR Test")}
+      />
     </View>
   );
 }
@@ -47,6 +53,7 @@ export function AppNavigator() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Kotoba" component={KotobaSuruScreen} />
         <Stack.Screen name="GBA SURU" component={GBASuruScreen} />
+        <Stack.Screen name="OCR Test" component={OCRTestScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

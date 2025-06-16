@@ -6,7 +6,7 @@ export default function GBASuruScreen() {
   return (
     <View style={{ flex: 1 }}>
       <WebView
-        source={{ uri: "http://localhost:1337" }}
+        source={{ uri: "http://192.168.4.80:1337" }}
         javaScriptEnabled
         originWhitelist={["*"]}
         allowsFullscreenVideo

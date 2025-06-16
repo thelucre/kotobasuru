@@ -24,7 +24,10 @@ function HomeScreen({ navigation }) {
         title="Kotoba Suru"
         onPress={() => navigation.navigate("Kotoba")}
       />
-      <Button title="GBA Suru" onPress={() => navigation.navigate("GBA")} />
+      <Button
+        title="GBA Suru"
+        onPress={() => navigation.navigate("GBA SURU")}
+      />
     </View>
   );
 }
@@ -43,7 +46,7 @@ export function AppNavigator() {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Kotoba" component={KotobaSuruScreen} />
-        <Stack.Screen name="GBA" component={GBASuruScreen} />
+        <Stack.Screen name="GBA SURU" component={GBASuruScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

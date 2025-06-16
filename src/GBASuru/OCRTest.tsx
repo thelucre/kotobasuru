@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Button, Image, Platform } from "react-native";
+import { View, Text, Button, Image, ScrollView, Platform } from "react-native";
 import { launchImageLibrary } from "react-native-image-picker";
 import TextRecognition, {
   TextRecognitionScript,
@@ -7,7 +7,7 @@ import TextRecognition, {
 
 export default function OCRTestScreen() {
   const [imageUri, setImageUri] = useState<string | null>(null);
-  const [textBlocks, setTextBlocks] = useState<string[]>([]);
+  const [blocks, setBlocks] = useState<any[]>([]);
 
   const handlePick = async () => {
     const result = await launchImageLibrary({ mediaType: "photo" });
@@ -15,62 +15,80 @@ export default function OCRTestScreen() {
     if (!uri) return;
 
     setImageUri(uri);
-
-    try {
-      const res = await TextRecognition.recognize(
-        uri,
-        TextRecognitionScript.JAPANESE
-      );
-      const rawText = res.blocks.map((b) => b.text);
-
-      setTextBlocks(rawText);
-
-      const cleanedText = rawText.map((text) =>
-        text.replace(
-          /[^\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}\p{Script=Latin}\s]/gu,
-          ""
-        )
-      );
-      console.log("🧼 Cleaned Text:", cleanedText);
-
-      for (let block of res.blocks) {
-        console.log("Block text:", block.text);
-        console.log("Block frame:", block.frame);
-
-        for (let line of block.lines) {
-          console.log("Line text:", line.text);
-          console.log("Line frame:", line.frame);
-        }
-      }
-    } catch (e) {
-      console.error("❌ OCR failed", e);
-      setTextBlocks(["OCR failed"]);
-    }
+    const res = await TextRecognition.recognize(
+      uri,
+      TextRecognitionScript.JAPANESE
+    );
+    setBlocks(res.blocks);
   };
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
+    <ScrollView style={{ flex: 1, padding: 24 }}>
       <Button title="Pick Image" onPress={handlePick} />
       {imageUri && (
         <Image
           source={{ uri: imageUri }}
-          style={{ width: 200, height: 200, marginVertical: 16 }}
+          style={{ width: "100%", height: 200, marginVertical: 16 }}
           resizeMode="contain"
         />
       )}
-      {textBlocks.map((t, i) => (
-        <Text
+      {blocks.map((block, i) => (
+        <TextBlock
           key={i}
-          style={{
-            fontFamily:
-              Platform.OS === "ios" ? "Hiragino Mincho ProN" : "sans-serif",
-            fontSize: 16,
-            marginBottom: 4,
-          }}
-        >
-          {t}
-        </Text>
+          text={block.text}
+          frame={block.frame}
+          lines={block.lines}
+        />
       ))}
+    </ScrollView>
+  );
+}
+
+function TextBlock({
+  text,
+  frame,
+  lines,
+}: {
+  text: string;
+  frame: any;
+  lines: { text: string; frame: any }[];
+}) {
+  return (
+    <View style={{ marginBottom: 16 }}>
+      <Text style={{ fontWeight: "bold", fontSize: 14 }}>🧱 Block</Text>
+      <Text
+        style={{
+          fontFamily:
+            Platform.OS === "ios" ? "Hiragino Mincho ProN" : "sans-serif",
+        }}
+      >
+        {text}
+      </Text>
+      <Text style={{ fontSize: 12, color: "#888" }}>
+        Frame: {JSON.stringify(frame)}
+      </Text>
+      {lines.map((line, i) => (
+        <TextLine key={i} text={line.text} frame={line.frame} />
+      ))}
+    </View>
+  );
+}
+
+function TextLine({ text, frame }: { text: string; frame: any }) {
+  return (
+    <View style={{ marginTop: 4, marginLeft: 8 }}>
+      <Text
+        style={{
+          fontSize: 16,
+          fontFamily:
+            Platform.OS === "ios" ? "Hiragino Mincho ProN" : "sans-serif",
+        }}
+      >
+        {text}
+      </Text>
+      <Text style={{ fontSize: 12, color: "#aaa" }}>
+        ↳ Frame: {JSON.stringify(frame)}
+      </Text>
     </View>
   );
 }

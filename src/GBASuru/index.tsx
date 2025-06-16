@@ -98,19 +98,30 @@ export default function GBASuruScreen() {
     webviewRef.current?.injectJavaScript(`sendScreenshotToReactNative();`);
   };
 
+  console.log("[GBASuru] !!!!Server URL:", serverUrl);
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
-        <WebView
-          ref={webviewRef}
-          // source={{ uri: "http://192.168.4.80:1337" }}
-          source={{ uri: serverUrl ?? "about:blank" }}
-          javaScriptEnabled
-          originWhitelist={["*"]}
-          allowsFullscreenVideo
-          mediaPlaybackRequiresUserAction={false}
-          onMessage={handleMessage}
-        />
+        {serverUrl && (
+          <WebView
+            ref={webviewRef}
+            // source={{ uri: "http://192.168.4.80:1337" }}
+            source={{
+              uri: serverUrl.replace("localhost", "127.0.0.1") + "/index.html",
+            }}
+            javaScriptEnabled
+            originWhitelist={["*"]}
+            allowsFullscreenVideo
+            mediaPlaybackRequiresUserAction={false}
+            onMessage={handleMessage}
+            onLoadStart={() => console.log("WebView starting load")}
+            onLoadEnd={() => console.log("WebView finished load")}
+            onError={(syntheticEvent) => {
+              const { nativeEvent } = syntheticEvent;
+              console.error("WebView error: ", nativeEvent);
+            }}
+          />
+        )}
       </View>
 
       <View style={styles.buttonContainer}>

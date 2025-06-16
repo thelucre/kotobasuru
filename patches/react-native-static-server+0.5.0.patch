@@ -1,0 +1,33 @@
+diff --git a/node_modules/react-native-static-server/ios/FPStaticServer.m b/node_modules/react-native-static-server/ios/FPStaticServer.m
+index a55a18f..b5f08b9 100644
+--- a/node_modules/react-native-static-server/ios/FPStaticServer.m
++++ b/node_modules/react-native-static-server/ios/FPStaticServer.m
+@@ -32,11 +32,14 @@ RCT_EXPORT_MODULE();
+ 
+ RCT_EXPORT_METHOD(start: (NSString *)port
+                   root:(NSString *)optroot
+-                  localOnly:(BOOL *)localhost_only
+-                  keepAlive:(BOOL *)keep_alive
++                  localOnly:(NSNumber *)localhost_only
++                  keepAlive:(NSNumber *)keep_alive
+                   resolver:(RCTPromiseResolveBlock)resolve
+                   rejecter:(RCTPromiseRejectBlock)reject) {
+     
++    BOOL localhostOnlyBool = [localhost_only boolValue];
++    BOOL keepAliveBool = [keep_alive boolValue];
++
+     NSString * root;
+ 
+     if( [optroot isEqualToString:@"DocumentDir"] ){
+@@ -63,9 +66,8 @@ RCT_EXPORT_METHOD(start: (NSString *)port
+     }
+ 
+ 
+-    self.keep_alive = keep_alive;
+-
+-    self.localhost_only = localhost_only;
++    self.keep_alive = @(keepAliveBool);
++    self.localhost_only = @(localhostOnlyBool);
+ 
+     if(_webServer.isRunning != NO) {
+         NSLog(@"StaticServer already running at %@", self.url);

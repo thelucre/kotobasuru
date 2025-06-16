@@ -7,80 +7,98 @@ import {
   Text,
   Platform,
 } from "react-native";
-import { captureRef } from "react-native-view-shot";
-import RNFS from "react-native-fs";
 import { WebView } from "react-native-webview";
+import type { WebView as WebViewType } from "react-native-webview";
+import RNFS from "react-native-fs";
 import TextRecognition, {
   TextRecognitionScript,
 } from "@react-native-ml-kit/text-recognition";
 
 export default function GBASuruScreen() {
-  const webviewRef = useRef<View>(null);
+  const webviewRef = useRef<WebViewType>(null);
   const [processing, setProcessing] = useState(false);
   const [ocrResults, setOcrResults] = useState<string[]>([]);
 
-  const handleCaptureAndOCR = async () => {
+  const isJapanese = (text: string) =>
+    /[\u3040-\u30FF\u4E00-\u9FFF]/.test(text); // hiragana, katakana, kanji
+
+  const handleBase64OCR = async (dataUrl: string) => {
+    console.log(
+      "[OCR] Raw data URL received (truncated):",
+      dataUrl.slice(0, 50)
+    );
+
+    const base64 = dataUrl.replace(/^data:image\/png;base64,/, "");
+    console.log("[OCR] Cleaned base64 length:", base64.length);
+
+    const filePath = `${RNFS.CachesDirectoryPath}/screenshot.jpg`;
+
     try {
       setProcessing(true);
+      console.log("[OCR] Writing base64 image to:", filePath);
 
-      if (!webviewRef.current) {
-        console.warn("WebView ref not found.");
-        return;
-      }
+      await RNFS.writeFile(filePath, base64, "base64");
+      const exists = await RNFS.exists(filePath);
+      console.log("[OCR] File exists:", exists);
 
-      console.log("[OCR] Attempting to capture WebView...");
-      const uri = await captureRef(webviewRef, {
-        format: "jpg",
-        quality: 0.9,
-      });
-
-      const safeUri =
-        Platform.OS === "ios" && !uri.startsWith("file://")
-          ? `file://${uri}`
-          : uri;
-
-      const exists = await RNFS.exists(safeUri);
       if (!exists) {
-        console.warn("Image file does not exist:", safeUri);
+        console.warn("[OCR] File write failed.");
         return;
       }
 
-      console.log("[OCR] Running text recognition...");
+      console.log("[OCR] Running TextRecognition...");
       const result = await TextRecognition.recognize(
-        safeUri,
+        `file://${filePath}`,
         TextRecognitionScript.JAPANESE
       );
-
-      const isJapanese = (text: string) =>
-        /[\u3040-\u30FF\u4E00-\u9FFF]/.test(text); // hiragana, katakana, kanji
 
       const textLines: string[] = [];
       for (const block of result.blocks) {
         for (const line of block.lines) {
+          console.log("[OCR] → Line:", line.text);
           if (isJapanese(line.text)) {
             textLines.push(line.text);
           }
         }
       }
 
+      console.log("[OCR] Japanese lines:", textLines);
       setOcrResults(textLines);
-      console.log("[OCR] Found lines:", textLines);
-    } catch (err: any) {
-      console.error("[OCR] Error:", err);
+    } catch (err) {
+      console.error("[OCR] Caught exception:", err);
     } finally {
       setProcessing(false);
+      console.log("[OCR] Finished processing.");
     }
+  };
+
+  const handleMessage = (event) => {
+    try {
+      const { type, payload } = JSON.parse(event.nativeEvent.data);
+      if (type === "screenshot" && typeof payload === "string") {
+        console.log("📸 Screenshot received, running OCR...");
+        handleBase64OCR(payload);
+      }
+    } catch (err) {
+      console.error("Invalid message from WebView:", err);
+    }
+  };
+
+  const handleCaptureAndOCR = () => {
+    webviewRef.current?.injectJavaScript(`sendScreenshotToReactNative();`);
   };
 
   return (
     <View style={{ flex: 1 }}>
-      <View ref={webviewRef} collapsable={false} style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <WebView
+          ref={webviewRef}
           source={{ uri: "http://192.168.4.80:1337" }}
           javaScriptEnabled
           originWhitelist={["*"]}
           allowsFullscreenVideo
           mediaPlaybackRequiresUserAction={false}
+          onMessage={handleMessage}
         />
       </View>
 

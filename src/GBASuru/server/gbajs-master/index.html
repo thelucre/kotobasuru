@@ -294,5 +294,33 @@
         gba.keypad.release(gba.keypad[key]);
       }
     </script>
+
+    <script>
+      function sendScreenshotToReactNative() {
+        try {
+          const canvas = document.getElementById("screen");
+          const dataURL = canvas.toDataURL("image/png");
+
+          // ✅ Post to React Native WebView
+          window.ReactNativeWebView?.postMessage(
+            JSON.stringify({ type: "screenshot", payload: dataURL })
+          );
+
+          log("[GBA] Screenshot sent to React Native.");
+        } catch (err) {
+          log("[GBA] Screenshot error: " + err.message);
+        }
+      }
+
+      // Optional: trigger with a gesture or button
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "s") {
+          sendScreenshotToReactNative();
+        }
+      });
+
+      // For debugging in browser
+      window.sendScreenshotToReactNative = sendScreenshotToReactNative;
+    </script>
   </body>
 </html>

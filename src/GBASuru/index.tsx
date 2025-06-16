@@ -14,10 +14,14 @@ import TextRecognition, {
   TextRecognitionScript,
 } from "@react-native-ml-kit/text-recognition";
 
+// Hooks
+import { useLocalGbaServer } from "./hooks/useLocalGbaServer";
+
 export default function GBASuruScreen() {
   const webviewRef = useRef<WebViewType>(null);
   const [processing, setProcessing] = useState(false);
   const [ocrResults, setOcrResults] = useState<string[]>([]);
+  const serverUrl = useLocalGbaServer();
 
   const isJapanese = (text: string) =>
     /[\u3040-\u30FF\u4E00-\u9FFF]/.test(text); // hiragana, katakana, kanji
@@ -64,6 +68,12 @@ export default function GBASuruScreen() {
 
       console.log("[OCR] Japanese lines:", textLines);
       setOcrResults(textLines);
+
+      // Delete image
+      if (await RNFS.exists(filePath)) {
+        await RNFS.unlink(filePath);
+        console.log("[OCR] Deleted temporary image:", filePath);
+      }
     } catch (err) {
       console.error("[OCR] Caught exception:", err);
     } finally {
@@ -93,7 +103,8 @@ export default function GBASuruScreen() {
       <View style={{ flex: 1 }}>
         <WebView
           ref={webviewRef}
-          source={{ uri: "http://192.168.4.80:1337" }}
+          // source={{ uri: "http://192.168.4.80:1337" }}
+          source={{ uri: serverUrl ?? "about:blank" }}
           javaScriptEnabled
           originWhitelist={["*"]}
           allowsFullscreenVideo

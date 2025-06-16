@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>GBA.js – Minish Mode</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: black;
+        color: white;
+        font-family: monospace;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #screen-wrapper {
+        position: relative;
+        width: 100vw;
+        aspect-ratio: 4 / 3;
+        background: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #screen {
+        /* width: 100%;
+        height: 100%; */
+        object-fit: contain;
+        image-rendering: pixelated;
+      }
+
+      #log {
+        width: 100%;
+        max-height: 20vh;
+        overflow-y: auto;
+        background: #111;
+        color: lime;
+        padding: 8px;
+        border-top: 1px solid #333;
+        font-size: 12px;
+        white-space: pre-wrap;
+      }
+
+      #start-btn {
+        padding: 16px 32px;
+        margin: auto;
+        background: white;
+        color: black;
+        font-weight: bold;
+        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .controls {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-around;
+        padding: 0 24px;
+        pointer-events: none;
+      }
+
+      .btn {
+        pointer-events: auto;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid #999;
+        color: white;
+        font-size: 14px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        min-width: 48px;
+        text-align: center;
+        user-select: none;
+      }
+
+      .dpad {
+        display: grid;
+        grid-template-areas:
+          ". up ."
+          "left center right"
+          ". down .";
+        gap: 6px;
+      }
+
+      .dpad .btn {
+        min-width: 40px;
+        min-height: 40px;
+      }
+
+      .up {
+        grid-area: up;
+      }
+      .down {
+        grid-area: down;
+      }
+      .left {
+        grid-area: left;
+      }
+      .right {
+        grid-area: right;
+      }
+      .center {
+        grid-area: center;
+        visibility: hidden;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .row {
+        display: flex;
+        gap: 8px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button id="start-btn" onclick="startEmulator()">Start GBA</button>
+    <div id="screen-wrapper">
+      <canvas id="screen" width="240" height="160"></canvas>
+      <div class="controls">
+        <div class="dpad">
+          <div id="btn-up" class="btn up">▲</div>
+          <div id="btn-left" class="btn left">◀</div>
+          <div id="btn-right" class="btn right">▶</div>
+          <div id="btn-down" class="btn down">▼</div>
+        </div>
+        <div class="buttons">
+          <div class="row">
+            <div id="btn-a" class="btn">A</div>
+            <div id="btn-b" class="btn">B</div>
+            <div id="btn-start" class="btn">Start</div>
+            <div id="btn-select" class="btn">Select</div>
+            <div id="btn-l" class="btn">L</div>
+            <div id="btn-r" class="btn">R</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <pre id="log"></pre>
+
+    <!-- GBA.js scripts -->
+    <script src="js/util.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/arm.js"></script>
+    <script src="js/thumb.js"></script>
+    <script src="js/mmu.js"></script>
+    <script src="js/io.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/video.js"></script>
+    <script src="js/video/proxy.js"></script>
+    <script src="js/video/software.js"></script>
+    <script src="js/irq.js"></script>
+    <script src="js/keypad.js"></script>
+    <script src="js/sio.js"></script>
+    <script src="js/savedata.js"></script>
+    <script src="js/gpio.js"></script>
+    <script src="js/gba.js"></script>
+    <script src="resources/xhr.js"></script>
+
+    <script>
+      function updateScale() {
+        const scaleX = window.innerWidth / 240;
+        const scaleY = window.innerHeight / 160;
+        const scale = Math.min(scaleX, scaleY);
+
+        const canvas = document.getElementById("screen");
+        canvas.style.transform = `scale(${scale})`;
+      }
+
+      function bindButton(id, key) {
+        const el = document.getElementById(id);
+        if (!el) {
+          log(`[UI] Button ${id} not found`);
+          return;
+        }
+
+        function press() {
+          if (!gba || !gba.keypad) return;
+          const keyBit = 1 << gba.keypad[key];
+          gba.keypad.currentDown &= ~keyBit;
+          log(`[Input] Press ${key}`);
+        }
+
+        function release() {
+          if (!gba || !gba.keypad) return;
+          const keyBit = 1 << gba.keypad[key];
+          gba.keypad.currentDown |= keyBit;
+          log(`[Input] Release ${key}`);
+        }
+
+        el.addEventListener("touchstart", (e) => {
+          e.preventDefault();
+          press();
+        });
+        el.addEventListener("touchend", release);
+        el.addEventListener("mousedown", press);
+        el.addEventListener("mouseup", release);
+      }
+
+      // Bind all control buttons
+      window.addEventListener("DOMContentLoaded", () => {
+        bindButton("btn-up", "UP");
+        bindButton("btn-down", "DOWN");
+        bindButton("btn-left", "LEFT");
+        bindButton("btn-right", "RIGHT");
+        bindButton("btn-a", "A");
+        bindButton("btn-b", "B");
+        bindButton("btn-start", "START");
+        bindButton("btn-select", "SELECT");
+        bindButton("btn-l", "L");
+        bindButton("btn-r", "R");
+      });
+
+      window.addEventListener("resize", updateScale);
+      window.addEventListener("orientationchange", updateScale);
+      window.addEventListener("load", updateScale);
+
+      const log = (msg) => {
+        const logEl = document.getElementById("log");
+        logEl.innerHTML += msg + "<br/>\n";
+        logEl.scrollTop = logEl.scrollHeight;
+        console.log(msg);
+      };
+
+      let gba;
+      let started = false;
+
+      function startEmulator() {
+        if (started) return;
+        started = true;
+        document.getElementById("start-btn").style.display = "none";
+
+        try {
+          gba = new GameBoyAdvance();
+          gba.keypad.eatInput = true;
+          gba.setLogger(function (level, error) {
+            log("[GBA Logger] " + error);
+            gba.pause();
+          });
+        } catch {
+          log("[GBA] Error: Emulator failed to initialize.");
+          return;
+        }
+
+        const canvas = document.getElementById("screen");
+        gba.setCanvas(canvas);
+        gba.logLevel = gba.LOG_ERROR;
+
+        log("[GBA] Loading BIOS...");
+        loadRom("resources/bios.bin", function (bios) {
+          gba.setBios(bios);
+          log("[GBA] BIOS set.");
+
+          log("[GBA] Loading ROM...");
+          fetch("minnish.gba")
+            .then((res) => res.arrayBuffer())
+            .then((buffer) => {
+              const rom = new Uint8Array(buffer);
+              gba.setRom(rom.buffer);
+              log("[GBA] ROM loaded successfully. Starting...");
+              gba.runStable();
+            })
+            .catch((err) => {
+              log("[GBA] ❌ ROM fetch error: " + err.message);
+            });
+        });
+      }
+
+      function press(key) {
+        if (!gba) return;
+        gba.keypad.press(gba.keypad[key]);
+      }
+
+      function release(key) {
+        if (!gba) return;
+        gba.keypad.release(gba.keypad[key]);
+      }
+    </script>
+
+    <script>
+      function sendScreenshotToReactNative() {
+        try {
+          const canvas = document.getElementById("screen");
+          const dataURL = canvas.toDataURL("image/png");
+
+          // ✅ Post to React Native WebView
+          window.ReactNativeWebView?.postMessage(
+            JSON.stringify({ type: "screenshot", payload: dataURL })
+          );
+
+          log("[GBA] Screenshot sent to React Native.");
+        } catch (err) {
+          log("[GBA] Screenshot error: " + err.message);
+        }
+      }
+
+      // Optional: trigger with a gesture or button
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "s") {
+          sendScreenshotToReactNative();
+        }
+      });
+
+      // For debugging in browser
+      window.sendScreenshotToReactNative = sendScreenshotToReactNative;
+    </script>
+  </body>
+</html>

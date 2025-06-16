@@ -32,8 +32,8 @@
       }
 
       #screen {
-        width: 100%;
-        height: 100%;
+        /* width: 100%;
+        height: 100%; */
         object-fit: contain;
         image-rendering: pixelated;
       }
@@ -137,84 +137,19 @@
       <canvas id="screen" width="240" height="160"></canvas>
       <div class="controls">
         <div class="dpad">
-          <div
-            class="btn up"
-            ontouchstart="press('UP')"
-            ontouchend="release('UP')"
-          >
-            ▲
-          </div>
-          <div
-            class="btn left"
-            ontouchstart="press('LEFT')"
-            ontouchend="release('LEFT')"
-          >
-            ◀
-          </div>
-          <div class="btn center"></div>
-          <div
-            class="btn right"
-            ontouchstart="press('RIGHT')"
-            ontouchend="release('RIGHT')"
-          >
-            ▶
-          </div>
-          <div
-            class="btn down"
-            ontouchstart="press('DOWN')"
-            ontouchend="release('DOWN')"
-          >
-            ▼
-          </div>
+          <div id="btn-up" class="btn up">▲</div>
+          <div id="btn-left" class="btn left">◀</div>
+          <div id="btn-right" class="btn right">▶</div>
+          <div id="btn-down" class="btn down">▼</div>
         </div>
         <div class="buttons">
           <div class="row">
-            <div
-              class="btn"
-              ontouchstart="press('L')"
-              ontouchend="release('L')"
-            >
-              L
-            </div>
-            <div
-              class="btn"
-              ontouchstart="press('R')"
-              ontouchend="release('R')"
-            >
-              R
-            </div>
-          </div>
-          <div class="row">
-            <div
-              class="btn"
-              ontouchstart="press('A')"
-              ontouchend="release('A')"
-            >
-              A
-            </div>
-            <div
-              class="btn"
-              ontouchstart="press('B')"
-              ontouchend="release('B')"
-            >
-              B
-            </div>
-          </div>
-          <div class="row">
-            <div
-              class="btn"
-              ontouchstart="press('SELECT')"
-              ontouchend="release('SELECT')"
-            >
-              Select
-            </div>
-            <div
-              class="btn"
-              ontouchstart="press('START')"
-              ontouchend="release('START')"
-            >
-              Start
-            </div>
+            <div id="btn-a" class="btn">A</div>
+            <div id="btn-b" class="btn">B</div>
+            <div id="btn-start" class="btn">Start</div>
+            <div id="btn-select" class="btn">Select</div>
+            <div id="btn-l" class="btn">L</div>
+            <div id="btn-r" class="btn">R</div>
           </div>
         </div>
       </div>
@@ -241,10 +176,68 @@
     <script src="resources/xhr.js"></script>
 
     <script>
+      function updateScale() {
+        const scaleX = window.innerWidth / 240;
+        const scaleY = window.innerHeight / 160;
+        const scale = Math.min(scaleX, scaleY);
+
+        const canvas = document.getElementById("screen");
+        canvas.style.transform = `scale(${scale})`;
+      }
+
+      function bindButton(id, key) {
+        const el = document.getElementById(id);
+        if (!el) {
+          log(`[UI] Button ${id} not found`);
+          return;
+        }
+
+        function press() {
+          if (!gba || !gba.keypad) return;
+          const keyBit = 1 << gba.keypad[key];
+          gba.keypad.currentDown &= ~keyBit;
+          log(`[Input] Press ${key}`);
+        }
+
+        function release() {
+          if (!gba || !gba.keypad) return;
+          const keyBit = 1 << gba.keypad[key];
+          gba.keypad.currentDown |= keyBit;
+          log(`[Input] Release ${key}`);
+        }
+
+        el.addEventListener("touchstart", (e) => {
+          e.preventDefault();
+          press();
+        });
+        el.addEventListener("touchend", release);
+        el.addEventListener("mousedown", press);
+        el.addEventListener("mouseup", release);
+      }
+
+      // Bind all control buttons
+      window.addEventListener("DOMContentLoaded", () => {
+        bindButton("btn-up", "UP");
+        bindButton("btn-down", "DOWN");
+        bindButton("btn-left", "LEFT");
+        bindButton("btn-right", "RIGHT");
+        bindButton("btn-a", "A");
+        bindButton("btn-b", "B");
+        bindButton("btn-start", "START");
+        bindButton("btn-select", "SELECT");
+        bindButton("btn-l", "L");
+        bindButton("btn-r", "R");
+      });
+
+      window.addEventListener("resize", updateScale);
+      window.addEventListener("orientationchange", updateScale);
+      window.addEventListener("load", updateScale);
+
       const log = (msg) => {
         const logEl = document.getElementById("log");
         logEl.innerHTML += msg + "<br/>\n";
         logEl.scrollTop = logEl.scrollHeight;
+        console.log(msg);
       };
 
       let gba;

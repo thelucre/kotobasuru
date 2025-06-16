@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, Button, Image, Platform } from "react-native";
 import { launchImageLibrary } from "react-native-image-picker";
-import MlkitOcr from "react-native-mlkit-ocr";
+import TextRecognition, {
+  TextRecognitionScript,
+} from "@react-native-ml-kit/text-recognition";
 
 export default function OCRTestScreen() {
   const [imageUri, setImageUri] = useState<string | null>(null);
@@ -13,16 +15,37 @@ export default function OCRTestScreen() {
     if (!uri) return;
 
     setImageUri(uri);
-    const blocks = await MlkitOcr.detectFromUri(uri);
-    setTextBlocks(blocks.map((b) => b.text));
 
-    const cleanedText = blocks.map((b) =>
-      b.text.replace(
-        /[^\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}\p{Script=Latin}\s]/gu,
-        ""
-      )
-    );
-    console.log(cleanedText);
+    try {
+      const res = await TextRecognition.recognize(
+        uri,
+        TextRecognitionScript.JAPANESE
+      );
+      const rawText = res.blocks.map((b) => b.text);
+
+      setTextBlocks(rawText);
+
+      const cleanedText = rawText.map((text) =>
+        text.replace(
+          /[^\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}\p{Script=Latin}\s]/gu,
+          ""
+        )
+      );
+      console.log("🧼 Cleaned Text:", cleanedText);
+
+      for (let block of res.blocks) {
+        console.log("Block text:", block.text);
+        console.log("Block frame:", block.frame);
+
+        for (let line of block.lines) {
+          console.log("Line text:", line.text);
+          console.log("Line frame:", line.frame);
+        }
+      }
+    } catch (e) {
+      console.error("❌ OCR failed", e);
+      setTextBlocks(["OCR failed"]);
+    }
   };
 
   return (
@@ -37,10 +60,12 @@ export default function OCRTestScreen() {
       )}
       {textBlocks.map((t, i) => (
         <Text
+          key={i}
           style={{
             fontFamily:
               Platform.OS === "ios" ? "Hiragino Mincho ProN" : "sans-serif",
             fontSize: 16,
+            marginBottom: 4,
           }}
         >
           {t}

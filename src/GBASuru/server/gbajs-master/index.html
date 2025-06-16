@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>GBA.js – Minish Mode</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: black;
+        color: white;
+        font-family: monospace;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #screen-wrapper {
+        position: relative;
+        width: 100vw;
+        aspect-ratio: 4 / 3;
+        background: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #screen {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        image-rendering: pixelated;
+      }
+
+      #log {
+        width: 100%;
+        max-height: 20vh;
+        overflow-y: auto;
+        background: #111;
+        color: lime;
+        padding: 8px;
+        border-top: 1px solid #333;
+        font-size: 12px;
+        white-space: pre-wrap;
+      }
+
+      #start-btn {
+        padding: 16px 32px;
+        margin: auto;
+        background: white;
+        color: black;
+        font-weight: bold;
+        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .controls {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-around;
+        padding: 0 24px;
+        pointer-events: none;
+      }
+
+      .btn {
+        pointer-events: auto;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid #999;
+        color: white;
+        font-size: 14px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        min-width: 48px;
+        text-align: center;
+        user-select: none;
+      }
+
+      .dpad {
+        display: grid;
+        grid-template-areas:
+          ". up ."
+          "left center right"
+          ". down .";
+        gap: 6px;
+      }
+
+      .dpad .btn {
+        min-width: 40px;
+        min-height: 40px;
+      }
+
+      .up {
+        grid-area: up;
+      }
+      .down {
+        grid-area: down;
+      }
+      .left {
+        grid-area: left;
+      }
+      .right {
+        grid-area: right;
+      }
+      .center {
+        grid-area: center;
+        visibility: hidden;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .row {
+        display: flex;
+        gap: 8px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button id="start-btn" onclick="startEmulator()">Start GBA</button>
+    <div id="screen-wrapper">
+      <canvas id="screen" width="240" height="160"></canvas>
+      <div class="controls">
+        <div class="dpad">
+          <div
+            class="btn up"
+            ontouchstart="press('UP')"
+            ontouchend="release('UP')"
+          >
+            ▲
+          </div>
+          <div
+            class="btn left"
+            ontouchstart="press('LEFT')"
+            ontouchend="release('LEFT')"
+          >
+            ◀
+          </div>
+          <div class="btn center"></div>
+          <div
+            class="btn right"
+            ontouchstart="press('RIGHT')"
+            ontouchend="release('RIGHT')"
+          >
+            ▶
+          </div>
+          <div
+            class="btn down"
+            ontouchstart="press('DOWN')"
+            ontouchend="release('DOWN')"
+          >
+            ▼
+          </div>
+        </div>
+        <div class="buttons">
+          <div class="row">
+            <div
+              class="btn"
+              ontouchstart="press('L')"
+              ontouchend="release('L')"
+            >
+              L
+            </div>
+            <div
+              class="btn"
+              ontouchstart="press('R')"
+              ontouchend="release('R')"
+            >
+              R
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="btn"
+              ontouchstart="press('A')"
+              ontouchend="release('A')"
+            >
+              A
+            </div>
+            <div
+              class="btn"
+              ontouchstart="press('B')"
+              ontouchend="release('B')"
+            >
+              B
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="btn"
+              ontouchstart="press('SELECT')"
+              ontouchend="release('SELECT')"
+            >
+              Select
+            </div>
+            <div
+              class="btn"
+              ontouchstart="press('START')"
+              ontouchend="release('START')"
+            >
+              Start
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <pre id="log"></pre>
+
+    <!-- GBA.js scripts -->
+    <script src="js/util.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/arm.js"></script>
+    <script src="js/thumb.js"></script>
+    <script src="js/mmu.js"></script>
+    <script src="js/io.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/video.js"></script>
+    <script src="js/video/proxy.js"></script>
+    <script src="js/video/software.js"></script>
+    <script src="js/irq.js"></script>
+    <script src="js/keypad.js"></script>
+    <script src="js/sio.js"></script>
+    <script src="js/savedata.js"></script>
+    <script src="js/gpio.js"></script>
+    <script src="js/gba.js"></script>
+    <script src="resources/xhr.js"></script>
+
+    <script>
+      const log = (msg) => {
+        const logEl = document.getElementById("log");
+        logEl.innerHTML += msg + "<br/>\n";
+        logEl.scrollTop = logEl.scrollHeight;
+      };
+
+      let gba;
+      let started = false;
+
+      function startEmulator() {
+        if (started) return;
+        started = true;
+        document.getElementById("start-btn").style.display = "none";
+
+        try {
+          gba = new GameBoyAdvance();
+          gba.keypad.eatInput = true;
+          gba.setLogger(function (level, error) {
+            log("[GBA Logger] " + error);
+            gba.pause();
+          });
+        } catch {
+          log("[GBA] Error: Emulator failed to initialize.");
+          return;
+        }
+
+        const canvas = document.getElementById("screen");
+        gba.setCanvas(canvas);
+        gba.logLevel = gba.LOG_ERROR;
+
+        log("[GBA] Loading BIOS...");
+        loadRom("resources/bios.bin", function (bios) {
+          gba.setBios(bios);
+          log("[GBA] BIOS set.");
+
+          log("[GBA] Loading ROM...");
+          fetch("minnish.gba")
+            .then((res) => res.arrayBuffer())
+            .then((buffer) => {
+              const rom = new Uint8Array(buffer);
+              gba.setRom(rom.buffer);
+              log("[GBA] ROM loaded successfully. Starting...");
+              gba.runStable();
+            })
+            .catch((err) => {
+              log("[GBA] ❌ ROM fetch error: " + err.message);
+            });
+        });
+      }
+
+      function press(key) {
+        if (!gba) return;
+        gba.keypad.press(gba.keypad[key]);
+      }
+
+      function release(key) {
+        if (!gba) return;
+        gba.keypad.release(gba.keypad[key]);
+      }
+    </script>
+  </body>
+</html>

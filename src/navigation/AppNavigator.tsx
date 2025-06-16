@@ -1,25 +1,49 @@
+// navigation/AppNavigator.tsx
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { LoadingScreen } from "../screens/LoadingScreen";
-import { SceneScreen } from "../screens/SceneScreen";
-import { ReflectionScreen } from "../screens/ReflectionScreen";
+import { View, Text, Button } from "react-native";
+import GBASuruScreen from "../GBASuru"; // Adjust the import path as needed
 
-export type RootStackParamList = {
-  Loading: undefined;
-  Scene: { sceneId: string };
-  Reflection: { log: any }; // Replace 'any' with SceneInteractionLog
-};
+const Stack = createNativeStackNavigator();
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+function HomeScreen({ navigation }) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 24,
+      }}
+    >
+      <Text style={{ fontSize: 24, marginBottom: 24 }}>
+        Choose Your Adventure
+      </Text>
+      <Button
+        title="Kotoba Suru"
+        onPress={() => navigation.navigate("Kotoba")}
+      />
+      <Button title="GBA Suru" onPress={() => navigation.navigate("GBA")} />
+    </View>
+  );
+}
+
+function KotobaSuruScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Kotoba Suru goes here.</Text>
+    </View>
+  );
+}
 
 export function AppNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Loading" component={LoadingScreen} />
-        <Stack.Screen name="Scene" component={SceneScreen} />
-        <Stack.Screen name="Reflection" component={ReflectionScreen} />
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Kotoba" component={KotobaSuruScreen} />
+        <Stack.Screen name="GBA" component={GBASuruScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

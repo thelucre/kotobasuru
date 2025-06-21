@@ -83,6 +83,7 @@ export default function GBASuruScreen() {
   };
 
   const handleMessage = (event) => {
+    console.log(event);
     try {
       const { type, payload } = JSON.parse(event.nativeEvent.data);
       if (type === "screenshot" && typeof payload === "string") {
@@ -108,10 +109,13 @@ export default function GBASuruScreen() {
             // source={{ uri: "http://192.168.4.80:1337" }}
             source={{
               uri: serverUrl.replace("localhost", "127.0.0.1") + "/index.html",
+              // uri: "http://192.168.4.80:1337/index.html",
             }}
+            style={styles.emulatorContainer}
             javaScriptEnabled
             originWhitelist={["*"]}
             allowsFullscreenVideo
+            allowsInlineMediaPlayback={true}
             mediaPlaybackRequiresUserAction={false}
             onMessage={handleMessage}
             onLoadStart={() => console.log("WebView starting load")}
@@ -163,6 +167,9 @@ const styles = StyleSheet.create({
     right: 20,
     zIndex: 10,
   },
+  emulatorContainer: {
+    // opacity: 0.5,
+  },
   resultsContainer: {
     position: "absolute",
     bottom: 80,
@@ -173,7 +180,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: "#ccc",
-    zIndex: 5,
+    zIndex: 50,
     fontFamily: "Courier New monospace",
     fontSize: 10,
   },

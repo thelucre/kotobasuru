@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07712E342E00A72D0007A630 /* gba-server in Resources */ = {isa = PBXBuildFile; fileRef = 07712E332E00A72A0007A630 /* gba-server */; };
+		07712FED2E0664170007A630 /* emu-server in Resources */ = {isa = PBXBuildFile; fileRef = 07712FEC2E0664110007A630 /* emu-server */; };
 		0CFB0A7EBD79CF63DA4BCFCB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 61F64DF82147451AD32D4DE7 /* PrivacyInfo.xcprivacy */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		07712E332E00A72A0007A630 /* gba-server */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "gba-server"; sourceTree = SOURCE_ROOT; };
+		07712FEC2E0664110007A630 /* emu-server */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "emu-server"; sourceTree = SOURCE_ROOT; };
 		13B07F961A680F5B00A75B9A /* kotobasuru.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kotobasuru.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = kotobasuru/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = kotobasuru/Info.plist; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				07712E332E00A72A0007A630 /* gba-server */,
+				07712FEC2E0664110007A630 /* emu-server */,
 				13B07FAE1A68108700A75B9A /* kotobasuru */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -149,6 +149,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				EDE41372720B01C234AF6142 /* [CP] Embed Pods Frameworks */,
 				A5F911426BEC6C6FCF33DF66 /* [CP] Copy Pods Resources */,
+				07712FEE2E0665350007A630 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -196,8 +197,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
+				07712FED2E0664170007A630 /* emu-server in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				07712E342E00A72D0007A630 /* gba-server in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 				0CFB0A7EBD79CF63DA4BCFCB /* PrivacyInfo.xcprivacy in Resources */,
 			);
@@ -220,6 +221,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios absolute | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli', { paths: [require.resolve('expo/package.json')] })\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n# Source .xcode.env.updates if it exists to allow\n# SKIP_BUNDLING to be unset if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.updates\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.updates\"\nfi\n# Source local changes to allow overrides\n# if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n\n";
+		};
+		07712FEE2E0665350007A630 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"📦 Copying emu-server assets...\"\ncp -R \"${SRCROOT}/emu-server\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/emu-server\"\nls -l \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/emu-server\"\n";
 		};
 		413F089ECB5A91BBB46F834B /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -3,7 +3,7 @@ import { Platform } from "react-native";
 import RNFS from "react-native-fs";
 import StaticServer from "react-native-static-server";
 
-const GBA_FOLDER = "gba-server";
+const GBA_FOLDER = "emu-server";
 
 let cachedServer: StaticServer | null = null;
 let cachedUrl: string | null = null;
@@ -17,7 +17,7 @@ export function useLocalGbaServer(): string | null {
     const start = async () => {
       try {
         if (cachedUrl) {
-          console.log("[GBA Server] Using cached URL:", cachedUrl);
+          console.log("[EMU Server] Using cached URL:", cachedUrl);
           setServerUrl(cachedUrl);
           return;
         }
@@ -40,7 +40,7 @@ export function useLocalGbaServer(): string | null {
             ? `${RNFS.MainBundlePath}/${GBA_FOLDER}`
             : `asset:///${GBA_FOLDER}`;
 
-        console.log("[GBA Server] Starting StaticServer from:", rootPath);
+        console.log("[EMU Server] Starting StaticServer from:", rootPath);
 
         try {
           const files = await RNFS.readDir(rootPath);
@@ -61,12 +61,12 @@ export function useLocalGbaServer(): string | null {
         cachedServer = server;
 
         const url = await server.start();
-        console.log("[GBA Server] Started at", url);
+        console.log("[EMU Server] Started at", url);
 
         cachedUrl = url;
         setServerUrl(url);
       } catch (err) {
-        console.error("[GBA Server] Failed to start:", err);
+        console.error("[EMU Server] Failed to start:", err);
       }
     };
 
@@ -74,7 +74,7 @@ export function useLocalGbaServer(): string | null {
 
     return () => {
       if (server && server === cachedServer) {
-        console.log("[GBA Server] Stopping StaticServer");
+        console.log("[EMU Server] Stopping StaticServer");
         server.stop();
         cachedServer = null;
         cachedUrl = null;
